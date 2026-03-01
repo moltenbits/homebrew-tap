@@ -1,6 +1,6 @@
 cask "growlrrr" do
-  version "1.2.0"
-  sha256 "59ca2a3a1ee10b1a412b783efb4e816a11eba93276519cfdf53fcfff9cdde0c4"
+  version ".1.2.1"
+  sha256 "192d0671f6884c454e56b2c0c1f31cdf21a462a788ed2ca7e9011ae856facd77"
 
   url "https://github.com/moltenbits/growlrrr/releases/download/v#{version}/growlrrr-#{version}-macos.tar.gz"
   name "growlrrr"
