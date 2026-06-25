@@ -7,7 +7,7 @@ cask "growlrrr" do
   desc "Modern CLI tool for macOS notifications"
   homepage "https://github.com/moltenbits/growlrrr"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "growlrrr.app"
   binary "#{appdir}/growlrrr.app/Contents/MacOS/growlrrr"
