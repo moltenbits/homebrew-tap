@@ -4,10 +4,10 @@ cask "growlrrr" do
 
   url "https://github.com/moltenbits/growlrrr/releases/download/v#{version}/growlrrr-#{version}-macos.tar.gz"
   name "growlrrr"
-  desc "Modern CLI tool for macOS notifications"
+  desc "Modern CLI tool for desktop notifications"
   homepage "https://github.com/moltenbits/growlrrr"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "growlrrr.app"
   binary "#{appdir}/growlrrr.app/Contents/MacOS/growlrrr"

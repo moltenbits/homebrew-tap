@@ -4,10 +4,10 @@ cask "spaceballs" do
 
   url "https://github.com/moltenbits/spaceballs/releases/download/v#{version}/spaceballs-#{version}-macos.tar.gz"
   name "Spaceballs"
-  desc "Keyboard-driven macOS window switcher for Spaces"
+  desc "Keyboard-driven window switcher for Spaces"
   homepage "https://github.com/moltenbits/spaceballs"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "Spaceballs.app"
   binary "Spaceballs-CLI.app/Contents/MacOS/spaceballs"
