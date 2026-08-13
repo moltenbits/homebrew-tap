@@ -1,6 +1,6 @@
 cask "micspresso" do
-  version "1.1.0"
-  sha256 "6f8364a21df11693a5ad46298cfd97c9ad9f653712f62513af2f712afd88e3a7"
+  version "1.2.1"
+  sha256 "912cf835966f2a941b02ba184c6705379441a2ed6cb8be4a5845f8c5e0bf9f35"
 
   url "https://github.com/moltenbits/micspresso/releases/download/v#{version}/micspresso-#{version}-macos.tar.gz"
   name "Micspresso"
