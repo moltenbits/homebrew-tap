@@ -12,18 +12,16 @@ cask "micspresso" do
   app "Micspresso.app"
   binary "#{appdir}/Micspresso.app/Contents/MacOS/micspresso"
 
-  # Quit the running instance before brew replaces the bundle on
-  # upgrade/uninstall, then relaunch (-g: without stealing focus).
-  uninstall quit: "com.moltenbits.micspresso"
-
-  postflight do
-    system_command "/usr/bin/open",
-                   args: ["-g", "-a", "#{appdir}/Micspresso.app"]
+  # Relaunch after install/upgrade (-g: without stealing focus).
+  postflight_steps do
+    run "/usr/bin/open", args: ["-g", "-a", "{{appdir}}/Micspresso.app"]
   end
 
-  zap trash: [
-    "~/Library/Preferences/com.moltenbits.micspresso.plist",
-  ]
+  # Quit the running instance before brew replaces the bundle on
+  # upgrade/uninstall.
+  uninstall quit: "com.moltenbits.micspresso"
+
+  zap trash: "~/Library/Preferences/com.moltenbits.micspresso.plist"
 
   caveats <<~EOS
     Micspresso needs microphone permission to hold the mic open —

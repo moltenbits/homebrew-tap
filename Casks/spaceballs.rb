@@ -12,17 +12,16 @@ cask "spaceballs" do
   app "Spaceballs.app"
   binary "Spaceballs-CLI.app/Contents/MacOS/spaceballs"
 
+  # Relaunch after install/upgrade (-g: without stealing focus), so
+  # an upgrade is quit -> replace -> relaunch with no manual step.
+  postflight_steps do
+    run "/usr/bin/open", args: ["-g", "-a", "{{appdir}}/Spaceballs.app"]
+  end
+
   # Quit the running instance before brew replaces the bundle on
   # upgrade/uninstall — otherwise the old version keeps running from
   # its memory-mapped (deleted) binary until manually restarted.
   uninstall quit: "com.moltenbits.spaceballs"
-
-  # Relaunch after install/upgrade (-g: without stealing focus), so
-  # an upgrade is quit -> replace -> relaunch with no manual step.
-  postflight do
-    system_command "/usr/bin/open",
-                   args: ["-g", "-a", "#{appdir}/Spaceballs.app"]
-  end
 
   caveats <<~EOS
     This release is built for and tested on macOS 26 (Tahoe). Spaceballs
