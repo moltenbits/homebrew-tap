@@ -1,45 +1,42 @@
 cask "spaceballs" do
-  version "1.4.3"
-  sha256 "658715df1f171340c0863527bc8c53cdac4a083c98cc6eb730ecfa75e49cedcc"
+  version "2.0.0"
+  sha256 "5e3fcaba0f5793b420d6cbccc228c88e484e2eaf5a89b90118c94e6255c1c948"
 
   url "https://github.com/moltenbits/spaceballs/releases/download/v#{version}/spaceballs-#{version}-macos.tar.gz"
   name "Spaceballs"
-  desc "Keyboard-driven macOS window switcher for Spaces"
+  desc "Keyboard-driven window switcher for Spaces"
   homepage "https://github.com/moltenbits/spaceballs"
 
-  depends_on macos: :tahoe
+  depends_on macos: :golden_gate
 
   app "Spaceballs.app"
   binary "Spaceballs-CLI.app/Contents/MacOS/spaceballs"
+
+  # Homebrew 7 runs install steps in a sandbox that cannot launch
+  # applications (deny lsopen), so the app is NOT relaunched after an
+  # upgrade any more; the caveats say so. Local Dev builds have a
+  # separate identity and are not stopped by the release app's
+  # uninstall hook, so stop one here. No match is normal.
+  postflight_steps do
+    terminate_process '/Spaceballs Dev\.app/Contents/MacOS/spaceballs([[:space:]]|$)',
+                      match: :full
+  end
 
   # Quit the running instance before brew replaces the bundle on
   # upgrade/uninstall — otherwise the old version keeps running from
   # its memory-mapped (deleted) binary until manually restarted.
   uninstall quit: "com.moltenbits.spaceballs"
 
-  # Relaunch after install/upgrade (-g: without stealing focus), so
-  # an upgrade is quit -> replace -> relaunch with no manual step.
-  postflight do
-    # Local Dev builds have a separate identity and are not stopped
-    # by the release app's uninstall hook. No match is normal.
-    result = system_command "/usr/bin/pkill",
-                            args: ["-INT", "-f", '/Spaceballs Dev\.app/Contents/MacOS/spaceballs([[:space:]]|$)'],
-                            must_succeed: false
-    unless [0, 1].include?(result.exit_status)
-      raise "Could not stop Spaceballs Dev (pkill exit #{result.exit_status})"
-    end
-
-    system_command "/usr/bin/open",
-                   args: ["-g", "-a", "#{appdir}/Spaceballs.app"]
-  end
-
   caveats <<~EOS
-    This release is built for and tested on macOS 26 (Tahoe). Spaceballs
-    relies on private macOS APIs that can change in any macOS release —
-    on an older macOS version, install the Spaceballs release that
-    targeted it.
+    This release requires macOS 27 (Golden Gate) or newer and was tested
+    on macOS 27. Spaceballs relies on private macOS APIs that can change
+    in any macOS release — on an older macOS version, install the
+    Spaceballs release that targeted it.
 
     Spaceballs requires Accessibility and Screen Recording permissions.
     Enable them in System Settings > Privacy & Security after installation.
+
+    Upgrades quit the running Spaceballs but cannot relaunch it (Homebrew's
+    install sandbox forbids launching apps): open Spaceballs again afterwards.
   EOS
 end
