@@ -12,18 +12,20 @@ cask "micspresso" do
   app "Micspresso.app"
   binary "#{appdir}/Micspresso.app/Contents/MacOS/micspresso"
 
-  # Relaunch after install/upgrade (-g: without stealing focus).
-  postflight_steps do
-    run "/usr/bin/open", args: ["-g", "-a", "{{appdir}}/Micspresso.app"]
-  end
-
   # Quit the running instance before brew replaces the bundle on
-  # upgrade/uninstall.
+  # upgrade/uninstall. No postflight relaunch: Homebrew 7 runs
+  # `postflight_steps` in a sandbox that denies `lsopen` and the
+  # LaunchServices mach lookups, so `open` fails with kLSUnknownErr
+  # (-10810) and the install rolls back; the legacy `postflight do`
+  # block is deprecated. The caveats tell the user to launch it.
   uninstall quit: "com.moltenbits.micspresso"
 
   zap trash: "~/Library/Preferences/com.moltenbits.micspresso.plist"
 
   caveats <<~EOS
+    Launch Micspresso from /Applications (or `open -a Micspresso`)
+    after installing or upgrading — Homebrew can't launch it for you.
+
     Micspresso needs microphone permission to hold the mic open —
     allow it when prompted. The orange mic indicator staying lit is
     expected: the mic is open (that's the point) but nothing is
