@@ -1,6 +1,6 @@
 cask "spaceballs" do
-  version "2.0.2"
-  sha256 "bce40d2a806d4c6d5413a0d940eaa1df3ce44d98dccd476440e7a486c4ef016f"
+  version "2.0.3"
+  sha256 "39a480dba9c9010aca3c73de648bb335420f535cb817f6d036d684a770e5d0fb"
 
   url "https://github.com/moltenbits/spaceballs/releases/download/v#{version}/spaceballs-#{version}-macos.tar.gz"
   name "Spaceballs"
