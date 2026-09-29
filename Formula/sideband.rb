@@ -1,21 +1,21 @@
 class Sideband < Formula
   desc "Local, durable, tridirectional communication between a human, Claude Code, and Codex"
   homepage "https://github.com/moltenbits/sideband"
-  version "1.1.0"
+  version "1.1.1"
 
   on_macos do
     url "https://github.com/moltenbits/sideband/releases/download/v#{version}/sideband-#{version}-macos-arm64.tar.gz"
-    sha256 "f4f1c6cb9a733fac87439097a18f1d014a9271eea3c4d877ddcca51fece8d2af"
+    sha256 "6fc233118f957a87822e7d0ab524e1f196b50254eb3bc6cd2e0d70f7cf0bf1cd"
   end
 
   on_linux do
     on_arm do
       url "https://github.com/moltenbits/sideband/releases/download/v#{version}/sideband-#{version}-linux-arm64.tar.gz"
-      sha256 "0193c36bdd11278bf04b27ea57727a78e78759bdc1a03cffec2944f35930d3b3"
+      sha256 "3ec3fcea2f04efbad8d9987ced434f9f1834cb65b24cca5760b92ad4e6ab3f02"
     end
     on_intel do
       url "https://github.com/moltenbits/sideband/releases/download/v#{version}/sideband-#{version}-linux-x86_64.tar.gz"
-      sha256 "5d577130101b2c60dc834a7530fcd41d01c9b20ca924b21693452a5296e4e3d5"
+      sha256 "371e05fa0ab99934a7ab441475f57e69d52bf88c639f45aaefb57bf4add23a3f"
     end
   end
 
